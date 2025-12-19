@@ -4,7 +4,7 @@ import cors from "cors";
 import { GoogleGenAI, Type } from "@google/genai";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import authRoutes from "./route/auth.js"; // 引入剛才拆分的檔案
+import authRoutes from "./route/auth.js";
 
 dotenv.config();
 
@@ -67,18 +67,18 @@ app.post("/api/avatar/generate", async (req, res) => {
       Do NOT generate cartoons, anime, or drawings. It must look like a real photo of a person.
     `;
 
-    // const response = await ai.models.generateContent({
-    //   model: IMAGE_MODEL_NAME,
-    //   contents: { parts: [{ text: prompt }] },
-    // });
+    const response = await ai.models.generateContent({
+      model: IMAGE_MODEL_NAME,
+      contents: { parts: [{ text: prompt }] },
+    });
 
-    // for (const part of response.candidates?.[0]?.content?.parts || []) {
-    //   if (part.inlineData) {
-    //     return res.json({
-    //       avatarUrl: `data:image/png;base64,${part.inlineData.data}`,
-    //     });
-    //   }
-    // }
+    for (const part of response.candidates?.[0]?.content?.parts || []) {
+      if (part.inlineData) {
+        return res.json({
+          avatarUrl: `data:image/png;base64,${part.inlineData.data}`,
+        });
+      }
+    }
 
     res.json({ avatarUrl: "https://picsum.photos/id/64/400/400" });
   } catch (error) {
