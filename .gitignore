@@ -1,0 +1,19 @@
+# --- 系統檔案 ---
+.DS_Store
+
+
+# --- 敏感資訊 (包含根目錄與子目錄下的 .env) ---
+.env
+*.env
+.env.*.local
+
+# --- 相依套件 ---
+node_modules/
+
+
+# --- 測試與覆蓋率 ---
+coverage/
+.nyc_output
+
+# --- 編輯器設定 ---
+.vscode/
